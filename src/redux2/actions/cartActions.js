@@ -8,7 +8,7 @@ import {
 } from '../constants/cartConstants';
 
 export const addToCart = (productId) => async (dispatch, getState) => {
-  const res = await Axios.get(`/products/find/${productId}`);
+  const res = await Axios.get(`https://stormy-dawn-71374.herokuapp.com/api/v1/products/find/${productId}`);
   const productData=res.data.product
   // console.log(productData);
   // const {

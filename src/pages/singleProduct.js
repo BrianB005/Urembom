@@ -24,7 +24,7 @@ const SingleProduct = () => {
         const fetchData=async ()=>{
             try{
                 setLoading(true)
-                const res=await axios.get(`/products/find/${productId}`)
+                const res=await axios.get(`https://stormy-dawn-71374.herokuapp.com/api/v1/products/find/${productId}`)
                 // console.log(res.data.product);
                 setLoading(false)
                 setProduct(res.data.product)
