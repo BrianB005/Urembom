@@ -5,9 +5,9 @@ import {useSelector} from 'react-redux'
 const CartTotals = () => {
   const total=useSelector((state)=>state.cart)
   
-  const toFixed=(item)=>{
-    return item.toFixed(2)
-  }
+  // const toFixed=(item)=>{
+  //   return item.toFixed(2)
+  // }
   // console.log(toFixed(total.totalAmount))
   
   
@@ -16,10 +16,10 @@ const CartTotals = () => {
     <TotalsWrapper>
       <Link to="/shipping"><Button >CheckOut</Button></Link>
       <Wrapper>
-        <SubTotal>SubTotal : <Span> Kshs. {toFixed(total.totalAmount)}</Span></SubTotal>
-        <Tax>Tax:<Span> Kshs.{toFixed(total.tax)}</Span></Tax>
-        <Shipping>Shipping Fee : <Span> Kshs. {toFixed(total.shippingFee)} </Span></Shipping>
-        <Total>Total:<TotalSpan>Kshs. {toFixed(total.cartTotal)}</TotalSpan></Total>
+        <SubTotal>SubTotal : <Span> Kshs. {total?.totalAmount?.toFixed(2)}</Span></SubTotal>
+        <Tax>Tax:<Span> Kshs.{total?.tax?.toFixed(2)}</Span></Tax>
+        <Shipping>Shipping Fee : <Span> Kshs.{total?.shippingFee?.toFixed(2)} </Span></Shipping>
+        <Total>Total:<TotalSpan>Kshs. {total?.cartTotal?.toFixed}</TotalSpan></Total>
       </Wrapper>  
     </TotalsWrapper>
   )
