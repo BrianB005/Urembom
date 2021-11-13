@@ -19,7 +19,7 @@ const CartTotals = () => {
         <SubTotal>SubTotal : <Span> Kshs. {total?.totalAmount?.toFixed(2)}</Span></SubTotal>
         <Tax>Tax:<Span> Kshs.{total?.tax?.toFixed(2)}</Span></Tax>
         <Shipping>Shipping Fee : <Span> Kshs.{total?.shippingFee?.toFixed(2)} </Span></Shipping>
-        <Total>Total:<TotalSpan>Kshs. {total?.cartTotal?.toFixed}</TotalSpan></Total>
+        <Total>Total:<TotalSpan>Kshs. {total?.cartTotal?.toFixed(2)}</TotalSpan></Total>
       </Wrapper>  
     </TotalsWrapper>
   )
