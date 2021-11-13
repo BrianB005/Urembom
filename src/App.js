@@ -11,7 +11,7 @@ import SingleProduct from './pages/singleProduct';
 import Register from './pages/register';
 import Login from './pages/login'
 import Cart from './pages/cart';
-import Contact from './pages/Contact';
+// import Contact from './pages/Contact';
 import Error from './pages/Error';
 import Account from './pages/Account';
 import About from './pages/About';
@@ -29,14 +29,13 @@ function App() {
       <Sidebar closeSidebar={closeSidebar} sidebarOpen={sidebarOpen}/>
       <Routes>
         <Route  path='/'element={<Home/>}/>
-        
         <Route path='/login' element={<Login/>}/>
         <Route path='/register'element={<Register/>}/>
         <Route path='/products/find/:id'element={<SingleProduct/>}/>
         <Route path='/cart'element={<Cart/>}/>
         <Route path='/refund' element={<Refund/>}/>
        
-        <Route path='/contact'element={<Contact/>}/>
+        {/* <Route path='/contact'element={<Cart/>}/> */}
         <Route path='/account'element={<Account/>}/>
         <Route path='/about'element={<About/>}/>
         <Route path='/shipping'element={<ShippingInfo/>}/>

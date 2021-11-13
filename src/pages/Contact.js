@@ -1,29 +1,35 @@
-import React,{useRef, useState }from 'react';
-import emailjs from 'emailjs-com'
+
+
+
+
+
+
+import React from 'react';
+// import emailjs from 'emailjs-com'
 import {FaPhone,FaFacebookMessenger,FaSearchLocation} from 'react-icons/fa'
 import styled from 'styled-components'
 const Contact = () => {
-  const formRef=useRef()
-  const [done,setDone]=useState(false);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    emailjs
-      .sendForm(
-        "service_51brksc",
-        "template_mcp81oq",
-        formRef.current,
-        "user_k2jDyzx9HIcdbfqSp8les"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-          setDone(true)
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
-  };
+  // const formRef=useRef()
+  // const [done,setDone]=useState(false);
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   emailjs
+  //     .sendForm(
+  //       "service_51brksc",
+  //       "template_mcp81oq",
+  //       formRef.current,
+  //       "user_k2jDyzx9HIcdbfqSp8les"
+  //     )
+  //     .then(
+  //       (result) => {
+  //         console.log(result.text);
+  //         setDone(true)
+  //       },
+  //       (error) => {
+  //         console.log(error.text);
+  //       }
+  //     );
+  // };
   return (
     <Container>
       <Wrapper>
@@ -42,9 +48,9 @@ const Contact = () => {
           </Contact>
         </Left>
         <Right>
-          {done&& <Success>EMail sent successfully</Success>}
+          {/* <Success>EMail sent successfully</Success> */}
           <Header>Reach out now by filling the form below and our team shall get back to you in no time.</Header>
-          <Form ref={formRef} onSubmit={handleSubmit}>
+          <Form >
             <Input placeholder="Name" name="user_name" />
             <Input placeholder="Subject" name="user_subject"  />
             <Input placeholder="Email" name="user_email" />
@@ -92,7 +98,7 @@ const TextArea=styled.textarea``
 const Input=styled.input`
   margin-bottom: 5px;
 ` 
-const Success=styled.h6``
+// const Success=styled.h6``
 const Button=styled.button`
   padding:5px 9px;
   border-radius: 4px;

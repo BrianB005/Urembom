@@ -38,8 +38,10 @@ export const removeFromCart = (productId) => (dispatch, getState) => {
 };
 
 export const getTotals = () => (dispatch, getState) => {
-  dispatch({ type: GET_TOTALS});
-  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+  const cartItems=getState().cart.cartItems
+  // console.log(cartItems);
+  dispatch({ type: GET_TOTALS,payload:cartItems});
+  
 };
 
 export const saveShippingAddress = (productData) => (dispatch) => {

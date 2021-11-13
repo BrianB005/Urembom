@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { removeFromCart } from '../../redux2/actions/cartActions';
 import styled from 'styled-components'
 import {FaPlus,FaMinus,FaTrash} from 'react-icons/fa';
-const SingleProduct = ({colors,image,price,name,_id}) => {
+const SingleProduct = ({colors,image,price,name,product}) => {
   const dispatch=useDispatch()  
     const [count,setCount]=useState(1)
     const handleClick=(type)=>{
@@ -23,7 +23,7 @@ const SingleProduct = ({colors,image,price,name,_id}) => {
                   </ImageContainer>
                 </Wrapper> 
                 <Title>{name}</Title>
-                <DeleteIcon onClick={()=>dispatch(removeFromCart(_id))}><FaTrash/></DeleteIcon>
+                <DeleteIcon onClick={()=>dispatch(removeFromCart(product))}><FaTrash/></DeleteIcon>
                 <Filters>
                   <FilterTitle>Color:</FilterTitle>
                   <Filter>

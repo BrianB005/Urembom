@@ -1,14 +1,20 @@
-import React from 'react';
+import React,{useEffect}from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
-
+import {getTotals} from '../redux2/actions/cartActions'
 import CartItem from './cart/CartItem'
 import EmptyCart from '../components/EmptyCart';
 import CartTotals from './cart/CartTotals'
-import { useSelector} from 'react-redux';
+import { useDispatch,useSelector} from 'react-redux';
+
 const Cart = () => {
+    const dispatch=useDispatch()
+    
+
     const itemsInCart=useSelector((state)=>state.cart.cartItems)
-    // console.log(itemsInCart.cartItems);
+    useEffect(()=>{
+        dispatch(getTotals())
+    },[dispatch,itemsInCart])
     if (itemsInCart?.length<1){
         return <EmptyCart/>
     }
@@ -16,14 +22,14 @@ const Cart = () => {
         <Wrapper>
             <Link to='/'><BackButton check >Back To Products</BackButton></Link>
             {itemsInCart?.map((item)=>{
-                return <CartItem key={item._id} {...item}/>
+                return <CartItem key={item.product} {...item}/>
             })}
             <CartTotals/>
         </Wrapper>    
     )
 }
 const Wrapper=styled.div`
-    
+    margin-top:0;
 `
 
 const BackButton=styled.div`

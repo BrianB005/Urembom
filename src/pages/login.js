@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
-import Loading from "../components/Loading";
+// import Loading from "../components/Loading";
 import { useDispatch, useSelector} from "react-redux";
 import { signin } from "../redux2/actions/userActions"
 import { useNavigate } from "react-router-dom";
@@ -24,9 +24,7 @@ const Login = () => {
   if (userInfo){
     navigate('/')
   }
-  if (loading){
-  return <Loading account/>
-  }
+  
     return (
       <Container>
         <Wrapper>
@@ -40,7 +38,7 @@ const Login = () => {
                 Remember me?
             </Check>
             <Forgot>Forgot Password?</Forgot>
-            <Button onClick={handleClick}>LOGIN</Button>
+            <Button onClick={handleClick}>{loading?"Logging in...":"LOGIN"}</Button>
           </Form>
           
           

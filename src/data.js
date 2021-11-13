@@ -2,26 +2,6 @@
  import {FaTwitter,FaFacebook,FaTiktok,FaLinkedin, FaInstagram} from 'react-icons/fa'
 
  export const links=[
-     {
-         id:1,
-         url:'/all',
-         text:'All products'
-    },
-    {
-        id:2,
-        url:'/latest',
-        text:'Latest Products'
-    },
-    {
-        id:3,
-        url:'/popular',
-        text:'Popular Products'
-    },
-    {
-        id:4,
-        url:'/offer',
-        text:'Offer Products'
-    },
     {
         id:5,
         url:'/account',
@@ -32,11 +12,11 @@
         url:'/about',
         text:'About Us'
     },
-    {
-        id:7,
-        url:'/contact',
-        text:'Contact'
-    },
+    // {
+    //     id:7,
+    //     url:'/contact',
+    //     text:'Contact'
+    // },
     {
       id:8,
       url:'/refund',

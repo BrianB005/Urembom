@@ -5,6 +5,7 @@ import {
   CART_REMOVE_ITEM,
   CART_SAVE_PAYMENT_METHOD,
   CART_SAVE_SHIPPING_ADDRESS,
+  GET_TOTALS
 } from '../constants/cartConstants';
 
 export const cartReducer = (state = { cartItems: [] }, action) => {
@@ -27,8 +28,9 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
       return {
         ...state,
         error: '',
-        cartItems: state.cartItems.filter((x) => x.product !== action.payload),
+        cartItems: state.cartItems.filter((x) => x.product !== action.payload)
       };
+      
     case CART_SAVE_SHIPPING_ADDRESS:
       return { ...state, shippingAddress: action.payload };
     case CART_SAVE_PAYMENT_METHOD:
@@ -37,10 +39,15 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
       return { ...state, error: action.payload };
     case CLEARCART:
       return { ...state, error: '', cartItems: [] };
-    // case GET_TOTALS:
-    //   state.cartItems.map((item)=>{
-    //     const total=item.price*item.qty
-    //   })
+    case GET_TOTALS:
+      const total=action.payload.reduce((total,item)=>
+         total+=item.price,0)
+      const shippingFee=total*0.125
+      const Tax=total*0.025
+      const cartTotal=total+Tax+shippingFee
+      // console.log(Tax)
+
+      return {...state,totalAmount:total,shippingFee:shippingFee,tax:Tax,cartTotal:cartTotal}  
     default:
       return state;
   }

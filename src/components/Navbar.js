@@ -93,7 +93,11 @@ const Nav=styled.div`
         width:94vw;
     }
 `
-const Button=styled.button``
+const Button=styled.button`
+    cursor:pointer;
+    border:none;
+    text-transform:uppercase;
+`
 const Left=styled.div`
 // flex:1;
 display: flex;
@@ -105,8 +109,14 @@ const Center=styled.div`
     width:600px;
     // flex:1;
     align-items:center;
-    @media screen and (max-width:850px){
-        width:200px;
+    @media screen and (max-width:800px){
+        width:400px;
+    }
+    @media screen and (max-width:700px){
+        width:300px;
+    }
+    @media screen and (max-width:600px){
+        width:250px;
     }
 `
 const Right=styled.div`
@@ -179,8 +189,9 @@ const AccountContent=styled.div`
 const Account=styled.div`
     position:relative;
     cursor:pointer;
-    @media screen and (max-width:600px){
-        margin-right: 15px;
+    margin-right:30px;
+    @media screen and (max-width:500px){
+        margin-right: 20px;
     }
     transition:all 0.3s linear;
     font-size:33px;

@@ -1,7 +1,7 @@
 import React,{useState,useEffect}from 'react'
 import { useDispatch,useSelector } from 'react-redux';
 import {register} from '../redux2/actions/userActions'
-import Loading from '../components/Loading'
+// import Loading from '../components/Loading'
 import {useNavigate} from 'react-router-dom'
 import styled from "styled-components";
 const Register = (props) => {
@@ -12,7 +12,7 @@ const Register = (props) => {
   // const redirect = props.location.search
   //   ? props.location.search.split('=')[1]
   //   : '/';
-  const redirect="/"
+  // const redirect="/"
   const navigate=useNavigate()
 
   const userRegister = useSelector((state) => state.userRegister);
@@ -33,12 +33,12 @@ const Register = (props) => {
       // props.history.push(redirect);
       navigate('/')
     }
-  }, [navigate,redirect, userInfo]);
+  }, [navigate, userInfo]);
     return (
      
       <Container>
         <Wrapper>
-        {loading&& <Loading account/>}
+        {/* {loading&& <Loading account/>} */}
           <Title>CREATE AN ACCOUNT</Title>
           <Form onSubmit={submitHandler}>
             <Input onChange={(e)=>setName(e.target.value)} type="text" required placeholder="Username" />
@@ -47,7 +47,7 @@ const Register = (props) => {
             <Input onChange={(e)=>setEmail(e.target.value)}type="email" required placeholder="email" />
             <Input onChange={(e)=>setPassword(e.target.value)} type="password" required placeholder="password" />
             <Input onChange={(e)=>setConfirmPassword(e.target.value)} type="password" required placeholder="confirm password" />
-            <Button type="submit">REGISTER</Button>
+            <Button type="submit">{loading?"Loading....":"REGISTER"}</Button>
           </Form>
         </Wrapper>
       </Container>

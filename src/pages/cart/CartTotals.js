@@ -1,15 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
+import {useSelector} from 'react-redux'
 const CartTotals = () => {
+  const total=useSelector((state)=>state.cart)
+  
+  const toFixed=(item)=>{
+    return item.toFixed(2)
+  }
+  // console.log(toFixed(total.totalAmount))
+  
+  
+
   return (
     <TotalsWrapper>
       <Link to="/shipping"><Button >CheckOut</Button></Link>
       <Wrapper>
-        <SubTotal>SubTotal : <Span> Kshs. 900</Span></SubTotal>
-        <Tax>Tax:<Span> Kshs. 800.99</Span></Tax>
-        <Shipping>Shipping Fee : <Span> Kshs. 607.67</Span></Shipping>
-        <Total>Total:<TotalSpan>Kshs. 1978.17</TotalSpan></Total>
+        <SubTotal>SubTotal : <Span> Kshs. {toFixed(total.totalAmount)}</Span></SubTotal>
+        <Tax>Tax:<Span> Kshs.{toFixed(total.tax)}</Span></Tax>
+        <Shipping>Shipping Fee : <Span> Kshs. {toFixed(total.shippingFee)} </Span></Shipping>
+        <Total>Total:<TotalSpan>Kshs. {toFixed(total.cartTotal)}</TotalSpan></Total>
       </Wrapper>  
     </TotalsWrapper>
   )
