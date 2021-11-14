@@ -1,11 +1,13 @@
 import {
   CART_ADD_ITEM,
   CART_ADD_ITEM_FAIL,
-  CLEARCART,
+  CLEAR_CART,
   CART_REMOVE_ITEM,
   CART_SAVE_PAYMENT_METHOD,
   CART_SAVE_SHIPPING_ADDRESS,
-  GET_TOTALS
+  GET_TOTALS,
+  INCREASE_COUNT,
+  DECREASE_COUNT
 } from '../constants/cartConstants';
 
 export const cartReducer = (state = { cartItems: [] }, action) => {
@@ -37,8 +39,14 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
       return { ...state, paymentMethod: action.payload };
     case CART_ADD_ITEM_FAIL:
       return { ...state, error: action.payload };
-    case CLEARCART:
+    case CLEAR_CART:
       return { ...state, error: '', cartItems: [] };
+
+    case INCREASE_COUNT:
+      return {...state,cartItems:[...state?.cartItems,...action.payload,action.payload.count+1]}
+    case DECREASE_COUNT:
+        return {...state,cartItems:[...state?.cartItems,...action.payload,action.payload.count-1]}
+      
     case GET_TOTALS:
       const total=action.payload.reduce((total,item)=>
          total+=item.price,0)

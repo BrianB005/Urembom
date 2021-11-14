@@ -1,27 +1,45 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+// import {useLocation} from 'react-router-dom'
+import { useSelector,useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-const ShippingInfo = () => {
-  const userInfo=useSelector((state)=>state.userSignin?.userInfo?.userInfo)
+import {saveShippingAddress }from '../redux2/actions/cartActions'
+const ShippingInfo = (props) => {
+  const userInfo=useSelector((state)=>state.userSignin?.userInfo)
+  const [address,setAddress]=useState({})
+  // const location=useLocation()
+  console.log(address);
   const navigate=useNavigate()
+  const dispatch=useDispatch()
+  // const redirect=location.pathname.split('/')[-1]|| "login"
   useEffect(()=>{
     if (!userInfo){
-      navigate("/login")
+      navigate('/login')
     }
   
   },[navigate,userInfo])
+  const handleClick=(e)=>{
+    e.preventDefault()
+    dispatch(saveShippingAddress(address))
+    setAddress({})
+    navigate('/place-order')
+  }
+  const handleChange=(e)=>{
+    setAddress((prev)=>{
+      return {...prev,[e.target.name]:e.target.value}
+    })
+  }
   
   return (
     <Wrapper>
       <Title>Shipping Info</Title>
-      <Form>
-        <Input type="text" placeholder="Town"/>
-        <Input type="text" placeholder="Town Address"/>
-        <Input type="text" placeholder="Home Address"/>
-        <Input type="text" placeholder="Home postal code"/>
-        <Button>Continue</Button>
+      <Form onChange={handleChange}>
+        <Input type="text" name="town"required  placeholder="Town"/>
+        <Input type="text" required name="townaddress" placeholder="Town Address"/>
+        <Input type="text" name="homeaddress" required placeholder="Home Address"/>
+        <Input type="text" name="postaladdress" required placeholder="Home postal code"/>
+        <Button onClick={handleClick}>Continue</Button>
       </Form>
     </Wrapper>
   )

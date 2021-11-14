@@ -29,7 +29,8 @@ const Wrapper=styled.div`
   /* display: flex; */
   /* flex-direction: column; */
   width:60vw;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   display: grid;
   place-items: end;
   padding: 10px 20px;

@@ -1,12 +1,18 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector} from 'react-redux';
 import { removeFromCart } from '../../redux2/actions/cartActions';
-import styled from 'styled-components'
+import styled from 'styled-components';
+// import toggleAMount from '../../redux2/actions/'
 import {FaPlus,FaMinus,FaTrash} from 'react-icons/fa';
 const SingleProduct = ({colors,image,price,name,product}) => {
   const dispatch=useDispatch()  
+  const itemCount=useSelector((state)=>state.cart.cartItems[0].count)
+  console.log(itemCount);
     const [count,setCount]=useState(1)
+    const [color,setColor]=useState(colors&&colors[0])
     const handleClick=(type)=>{
+      console.log(color);
+      // dispatch(toggleAMount(product,type))
       if(type==="dec"){
         setCount(count-1)
       }
@@ -26,7 +32,7 @@ const SingleProduct = ({colors,image,price,name,product}) => {
                 <DeleteIcon onClick={()=>dispatch(removeFromCart(product))}><FaTrash/></DeleteIcon>
                 <Filters>
                   <FilterTitle>Color:</FilterTitle>
-                  <Filter>
+                  <Filter  onChange={(e)=>setColor(e.target.value)}>
                     {colors?.map((c) => (
                       <FilterColor key={c} >{c}</FilterColor>
                     ))}
@@ -37,8 +43,8 @@ const SingleProduct = ({colors,image,price,name,product}) => {
                   </Price>
                 
                 <CountContainer>
-                  <Icon type="inc"onClick={()=>handleClick()}><FaPlus/></Icon>
-                  {count}<Icon type="dec"onClick={()=>handleClick()}><FaMinus/></Icon></CountContainer>    
+                  <Icon onClick={()=>handleClick("inc")}><FaPlus/></Icon>
+                  {count}<Icon onClick={()=>handleClick("dec")}><FaMinus/></Icon></CountContainer>    
               </ItemWrapper>  
         
     )

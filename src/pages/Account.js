@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router'
 import styled from 'styled-components'
 
 const Account = () => {
-  const userInfo=useSelector((state)=>state.userSignin?.userInfo?.userInfo)
+  const userInfo=useSelector((state)=>state.userSignin?.userInfo)
   const navigate=useNavigate()
   useEffect(()=>{
     if (!userInfo){

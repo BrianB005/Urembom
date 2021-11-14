@@ -4,7 +4,10 @@ import {
   CART_REMOVE_ITEM,
   CART_SAVE_SHIPPING_ADDRESS,
   CART_SAVE_PAYMENT_METHOD,
-  GET_TOTALS
+  GET_TOTALS,
+  CLEAR_CART,
+  DECREASE_COUNT,
+  INCREASE_COUNT
 } from '../constants/cartConstants';
 
 export const addToCart = (productId) => async (dispatch, getState) => {
@@ -22,6 +25,7 @@ export const addToCart = (productId) => async (dispatch, getState) => {
         image: productData.image,
         price: productData.price,
         colors:productData.colors,
+        count:1,
         product: productData._id,
       },
     });
@@ -43,6 +47,16 @@ export const getTotals = () => (dispatch, getState) => {
   dispatch({ type: GET_TOTALS,payload:cartItems});
   
 };
+export const toggleAMount=(productId,type)=>(dispatch,getState)=>{
+  const item=getState().cart.cartItems.find((x)=>x.product===productId)
+  // console.log(item);
+  if(type==="dec"){
+    dispatch({ type:DECREASE_COUNT,payload:item})
+  }
+  else{
+  dispatch({type:INCREASE_COUNT,payload:item})
+  }
+}
 
 export const saveShippingAddress = (productData) => (dispatch) => {
   dispatch({ type: CART_SAVE_SHIPPING_ADDRESS, payload: productData });
@@ -51,3 +65,6 @@ export const saveShippingAddress = (productData) => (dispatch) => {
 export const savePaymentMethod = (productData) => (dispatch) => {
   dispatch({ type: CART_SAVE_PAYMENT_METHOD, payload: productData });
 };
+export const clearCart = ()=>(dispatch)=>{
+  dispatch({ type:CLEAR_CART})
+}

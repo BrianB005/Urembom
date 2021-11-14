@@ -9,7 +9,8 @@ import PaymentMethod from './pages/paymentMethod';
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
 import SingleProduct from './pages/singleProduct';
 import Register from './pages/register';
-import Login from './pages/login'
+import Login from './pages/login';
+import PlaceOrder from './pages/placeOrder'
 import Cart from './pages/cart';
 // import Contact from './pages/Contact';
 import Error from './pages/Error';
@@ -40,6 +41,7 @@ function App() {
         <Route path='/about'element={<About/>}/>
         <Route path='/shipping'element={<ShippingInfo/>}/>
         <Route path='/payment' element={<PaymentMethod/>}/>
+        <Route path='/place-order' element={<PlaceOrder/>}/>
         <Route path="*" element={<Error/>}/>
       </Routes>
     </Router>

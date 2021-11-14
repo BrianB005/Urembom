@@ -1,10 +1,10 @@
 import React,{useEffect}from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
-import {getTotals} from '../redux2/actions/cartActions'
+import {getTotals,clearCart} from '../redux2/actions/cartActions'
 import CartItem from './cart/CartItem'
 import EmptyCart from '../components/EmptyCart';
-import CartTotals from './cart/CartTotals'
+import CartTotals from './cart/CartTotals';
 import { useDispatch,useSelector} from 'react-redux';
 
 const Cart = () => {
@@ -14,13 +14,17 @@ const Cart = () => {
     const itemsInCart=useSelector((state)=>state.cart.cartItems)
     useEffect(()=>{
         dispatch(getTotals())
-    },[dispatch,itemsInCart])
+    })
+    const handleClick=()=>{
+        dispatch(clearCart())
+    }
     if (itemsInCart?.length<1){
         return <EmptyCart/>
     }
     return (
         <Wrapper>
             <Link to='/'><BackButton check >Back To Products</BackButton></Link>
+            <BackButton onClick={handleClick}style={{background:"chocolate",position:"absolute" ,top:60,right:90}}>CLearCart</BackButton>
             {itemsInCart?.map((item)=>{
                 return <CartItem key={item.product} {...item}/>
             })}
@@ -30,6 +34,11 @@ const Cart = () => {
 }
 const Wrapper=styled.div`
     margin-top:0;
+    max-width:800px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin: 0 auto;
 `
 
 const BackButton=styled.div`

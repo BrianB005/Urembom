@@ -95,7 +95,8 @@ const Nav=styled.div`
 `
 const Button=styled.button`
     cursor:pointer;
-    border:none;
+    border:1px solid chartreuse;
+    margin-top: 4px;
     text-transform:uppercase;
 `
 const Left=styled.div`
