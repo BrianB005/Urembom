@@ -1,54 +1,50 @@
-import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
-import thunk from 'redux-thunk';
-import { cartReducer } from './reducers/cartReducers';
+import { createStore, compose, applyMiddleware, combineReducers } from "redux";
+import thunk from "redux-thunk";
+import { cartReducer } from "./reducers/cartReducers";
 // import { productSearchReducer } from './reducers/productReducers';
 
 import {
   // productCategoryListReducer,
-  productCreateReducer,
-  productDeleteReducer,
+  createProductReducer,
+  deleteProductReducer,
   productDetailsReducer,
   productListReducer,
-
-  productUpdateReducer,
-  categoriesReducer
-} from './reducers/productReducers';
+  updateProductReducer,
+  categoriesReducer,
+} from "./reducers/productReducers";
 import {
   userRegisterReducer,
   userSigninReducer,
- 
-} from './reducers/userReducers';
+} from "./reducers/userReducers";
 
 const initialState = {
   userSignin: {
-    userInfo: localStorage.getItem('userInfo')
-      ? JSON.parse(localStorage.getItem('userInfo'))
+    userInfo: localStorage.getItem("userInfo")
+      ? JSON.parse(localStorage.getItem("userInfo"))
       : null,
   },
   cart: {
-    cartItems: localStorage.getItem('cartItems')
-      ? JSON.parse(localStorage.getItem('cartItems'))
+    cartItems: localStorage.getItem("cartItems")
+      ? JSON.parse(localStorage.getItem("cartItems"))
       : [],
-    shippingAddress: localStorage.getItem('shippingAddress')
-      ? JSON.parse(localStorage.getItem('shippingAddress'))
+    shippingAddress: localStorage.getItem("shippingAddress")
+      ? JSON.parse(localStorage.getItem("shippingAddress"))
       : {},
-    paymentMethod: 'PayPal',
+    paymentMethod: "PayPal",
   },
 };
 const reducer = combineReducers({
   productsList: productListReducer,
   productDetails: productDetailsReducer,
   // search:productSearchReducer,
-  categories:categoriesReducer,
+  categories: categoriesReducer,
   cart: cartReducer,
   userSignin: userSigninReducer,
   userRegister: userRegisterReducer,
-  
-  productCreate: productCreateReducer,
-  productUpdate: productUpdateReducer,
-  productDelete: productDeleteReducer,
-  
-  
+
+  createProduct: createProductReducer,
+  updateProduct: updateProductReducer,
+  deleteProduct: deleteProductReducer,
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
