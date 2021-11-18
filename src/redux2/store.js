@@ -7,10 +7,12 @@ import {
   // productCategoryListReducer,
   createProductReducer,
   deleteProductReducer,
-  productDetailsReducer,
+  // productDetailsReducer,
+  productReducer,
   productListReducer,
   updateProductReducer,
   categoriesReducer,
+  createReviewReducer,
 } from "./reducers/productReducers";
 import {
   userRegisterReducer,
@@ -35,13 +37,13 @@ const initialState = {
 };
 const reducer = combineReducers({
   productsList: productListReducer,
-  productDetails: productDetailsReducer,
+  product: productReducer,
   // search:productSearchReducer,
   categories: categoriesReducer,
   cart: cartReducer,
   userSignin: userSigninReducer,
   userRegister: userRegisterReducer,
-
+  review: createReviewReducer,
   createProduct: createProductReducer,
   updateProduct: updateProductReducer,
   deleteProduct: deleteProductReducer,

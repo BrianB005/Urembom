@@ -17,6 +17,7 @@ import Error from "./pages/Error";
 import Account from "./pages/Account";
 import About from "./pages/About";
 import AddItem from "./pages/AddItem";
+import EditItem from "./pages/EditItem";
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const closeSidebar = () => {
@@ -44,6 +45,7 @@ function App() {
         <Route path="/payment" element={<PaymentMethod />} />
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/products/add" element={<AddItem />} />
+        <Route path="/products/edit/:id" element={<EditItem />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </Router>

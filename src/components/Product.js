@@ -4,8 +4,9 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 import Rotate from "react-reveal/Rotate";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux2/actions/cartActions";
+import { deleteItem } from "../redux2/actions/productActions";
 const Product = ({
   image,
   description,
@@ -22,6 +23,7 @@ const Product = ({
   const addItemToCart = (_id) => {
     dispatch(addToCart(_id));
   };
+  const userInfo = useSelector((state) => state.userSignin.userInfo);
   return (
     <Wrapper>
       <ImageContainer>
@@ -30,6 +32,7 @@ const Product = ({
         </Link>
         {freeShipping && <Shipped>Free Shipping</Shipped>}
       </ImageContainer>
+
       <InfoContainer>
         <Rotate top left>
           <Link to={`/products/find/${_id}`}>
@@ -67,6 +70,16 @@ const Product = ({
             </More>
           </Description>
         </Fade>
+        {userInfo && userInfo.user?.role === "admin" && (
+          <AdminButtons>
+            <Link to={`/products/edit/${_id}`}>
+              <UpdateButton>Update</UpdateButton>
+            </Link>
+            <DeleteButton onClick={() => dispatch(deleteItem(_id))}>
+              Delete
+            </DeleteButton>
+          </AdminButtons>
+        )}
         <Fade right>
           <ButtonsContainer>
             <Button cart onClick={() => addItemToCart(_id)}>
@@ -92,7 +105,7 @@ const Wrapper = styled.div`
   margin-bottom: 20px;
   margin-right: 20px;
   @media screen and (max-width: 700px) {
-    margin: 20px auto;
+    margin: 0 auto 20px;
   }
   box-shadow: 1px 3px 9px pink;
   &:hover {
@@ -200,6 +213,40 @@ const Initial = styled.h6`
   color: #105652;
   text-decoration: line-through;
   margin-left: 80px;
+`;
+
+const AdminButtons = styled.div`
+  display: flex;
+  margin-bottom: 8px;
+  justify-content: space-between;
+`;
+const DeleteButton = styled.button`
+  padding: 4px 13px;
+  background: #b2f9fc;
+  border-radius: 10px;
+  transition: all 0.4s linear;
+  background: red;
+  border: 1px solid blue;
+  cursor: pointer;
+  margin-right: 12px;
+  &:hover {
+    color: ivory;
+    /* background:#113CFC ; */
+  }
+`;
+const UpdateButton = styled.button`
+  padding: 4px 13px;
+  background: #b2f9fc;
+  border-radius: 10px;
+  transition: all 0.4s linear;
+  background: lightgreen;
+  border: 1px solid blue;
+  cursor: pointer;
+
+  &:hover {
+    color: #082032;
+    /* background:#113CFC ; */
+  }
 `;
 
 export default Product;

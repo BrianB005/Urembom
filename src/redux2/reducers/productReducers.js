@@ -8,7 +8,6 @@ const {
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
-
   UPDATE_PRODUCT_REQUEST,
   UPDATE_PRODUCT_SUCCESS,
   UPDATE_PRODUCT_FAIL,
@@ -29,6 +28,12 @@ const {
   PRODUCTS_IN_A_CATEGORY_REQUEST,
   PRODUCTS_IN_A_CATEGORY_FAIL,
   PRODUCTS_IN_A_CATEGORY_SUCCESS,
+  GET_PRODUCT_REQUEST,
+  GET_PRODUCT_SUCCESS,
+  GET_PRODUCT_FAIL,
+  CREATE_REVIEW_REQUEST,
+  CREATE_REVIEW_SUCCESS,
+  CREATE_REVIEW_FAIL,
 } = require("../constants/productConstants");
 
 // export const productSearchReducer = (
@@ -156,6 +161,30 @@ export const updateProductReducer = (state = {}, action) => {
     case UPDATE_PRODUCT_SUCCESS:
       return { loading: false, success: true };
     case UPDATE_PRODUCT_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+export const productReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_PRODUCT_REQUEST:
+      return { loading: true };
+    case GET_PRODUCT_SUCCESS:
+      return { loading: false, product: action.payload.product };
+    case GET_PRODUCT_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+export const createReviewReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CREATE_REVIEW_REQUEST:
+      return { loading: true };
+    case CREATE_REVIEW_SUCCESS:
+      return { loading: false, success: action.payload };
+    case CREATE_REVIEW_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

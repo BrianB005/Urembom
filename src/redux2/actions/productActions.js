@@ -21,6 +21,12 @@ import {
   CREATE_PRODUCT_FAIL,
   PRODUCTS_IN_A_CATEGORY_SUCCESS,
   PRODUCTS_IN_A_CATEGORY_FAIL,
+  GET_PRODUCT_REQUEST,
+  GET_PRODUCT_SUCCESS,
+  GET_PRODUCT_FAIL,
+  CREATE_REVIEW_REQUEST,
+  CREATE_REVIEW_FAIL,
+  CREATE_REVIEW_SUCCESS,
 } from "../constants/productConstants";
 
 export const LIST_PRODUCTS = (searchTerm, category) => async (dispatch) => {
@@ -78,6 +84,18 @@ export const LIST_PRODUCTS = (searchTerm, category) => async (dispatch) => {
   }
 };
 
+export const getProduct = (productId) => async (dispatch) => {
+  dispatch({ type: GET_PRODUCT_REQUEST, payload: productId });
+  try {
+    const { data } = await axios.get(
+      `https://stormy-dawn-71374.herokuapp.com/api/v1/products/find/${productId}`
+    );
+    dispatch({ type: GET_PRODUCT_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: GET_PRODUCT_FAIL, payload: error });
+  }
+};
+
 export const GetCategories = () => async (dispatch) => {
   dispatch({ type: PRODUCT_CATEGORIES_REQUEST });
   try {
@@ -94,7 +112,7 @@ export const GetCategories = () => async (dispatch) => {
 };
 
 export const addProduct = (product) => async (dispatch, getState) => {
-  const userInfo = getState().userLogin.userInfo;
+  const userInfo = getState().userSignin.userInfo;
   dispatch({ type: CREATE_PRODUCT_REQUEST, payload: product });
   try {
     const { data } = await axios.post(
@@ -119,7 +137,7 @@ export const addProduct = (product) => async (dispatch, getState) => {
 export const updateItem =
   (product, productId) => async (dispatch, getState) => {
     // console.log(product._id);
-    const userInfo = getState().userLogin.userInfo;
+    const userInfo = getState().userSignin.userInfo;
     dispatch({ type: UPDATE_PRODUCT_REQUEST, payload: product });
     try {
       const { data } = await axios.put(
@@ -143,7 +161,7 @@ export const updateItem =
     }
   };
 export const deleteItem = (productId) => async (dispatch, getState) => {
-  const userInfo = getState().userLogin.userInfo;
+  const userInfo = getState().userSignin.userInfo;
   dispatch({ type: DELETE_PRODUCT_REQUEST, payload: productId });
   try {
     const { data } = await axios.delete(
@@ -162,5 +180,30 @@ export const deleteItem = (productId) => async (dispatch, getState) => {
         ? error.response.data.msg
         : error.message;
     dispatch({ type: DELETE_PRODUCT_FAIL, payload: failMessage });
+  }
+};
+
+export const createReview = (product) => async (dispatch, getState) => {
+  const userInfo = getState().userSignin.userInfo;
+  dispatch({ type: CREATE_REVIEW_REQUEST, payload: product });
+  try {
+    await axios.post(
+      "https://stormy-dawn-71374.herokuapp.com/api/v1/reviews",
+      product,
+      {
+        headers: {
+          authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+    );
+    dispatch({ type: CREATE_REVIEW_SUCCESS, payload: "success" });
+  } catch (error) {
+    dispatch({
+      type: CREATE_REVIEW_FAIL,
+      payload:
+        error.response && error.response.data.msg
+          ? error.response.data.msg
+          : error.message,
+    });
   }
 };
