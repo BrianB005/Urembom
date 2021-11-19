@@ -11,7 +11,7 @@ const CreateProduct = () => {
   const addItem = useSelector((state) => state.createProduct);
   const userInfo = useSelector((state) => state.userLogin?.userInfo);
   // console.log(userInfo.user);
-  const { loading, error } = addItem;
+  const { loading, error, success } = addItem;
   console.log(error);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,6 +23,9 @@ const CreateProduct = () => {
       navigate("/");
     }
   }, [navigate, userInfo]);
+  if (success) {
+    setValue({});
+  }
 
   // console.log(value);
   const handleChange = (e) => {

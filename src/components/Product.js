@@ -115,6 +115,7 @@ const Wrapper = styled.div`
 const ImageContainer = styled.div`
   position: relative;
   cursor: pointer;
+  width: 100%;
   transition: all 0.7s linear;
   &:hover {
     opacity: 0.6;
@@ -124,7 +125,7 @@ const Image = styled.img`
   width: 100%;
   border-top-left-radius: 9px;
   border-top-right-radius: 9px;
-  object-fit: contain;
+  object-fit: cover;
 `;
 const InfoContainer = styled.div``;
 const ButtonsContainer = styled.div`

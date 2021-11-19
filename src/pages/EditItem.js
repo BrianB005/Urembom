@@ -42,17 +42,15 @@ const EditItem = () => {
     e.preventDefault();
     dispatch(
       updateItem({
-        product: {
-          image,
-          description,
-          initialPrice,
-          category,
-          name,
-          price,
-          company,
-          colors,
-          freeShipping,
-        },
+        image,
+        description,
+        initialPrice,
+        category,
+        name,
+        price,
+        company,
+        colors,
+        freeShipping,
         productId,
       })
     );
@@ -182,8 +180,8 @@ const EditItem = () => {
   );
 };
 const ItemWrapper = styled.div`
-  margin-top: 40px;
-  padding-top: 0;
+  padding-top: 40px;
+  /* padding-top: 0; */
 `;
 const Wrapper = styled.div`
   width: 400px;

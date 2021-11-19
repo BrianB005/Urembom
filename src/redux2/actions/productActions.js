@@ -134,32 +134,31 @@ export const addProduct = (product) => async (dispatch, getState) => {
   }
 };
 
-export const updateItem =
-  (product, productId) => async (dispatch, getState) => {
-    // console.log(product._id);
-    const userInfo = getState().userSignin.userInfo;
-    dispatch({ type: UPDATE_PRODUCT_REQUEST, payload: product });
-    try {
-      const { data } = await axios.put(
-        `https://stormy-dawn-71374.herokuapp.com/api/v1/products/find/${productId}`,
+export const updateItem = (product) => async (dispatch, getState) => {
+  // console.log(product._id);
+  const userInfo = getState().userSignin.userInfo;
+  dispatch({ type: UPDATE_PRODUCT_REQUEST, payload: product });
+  try {
+    const { data } = await axios.put(
+      `https://stormy-dawn-71374.herokuapp.com/api/v1/products/find/${product.productId}}`,
 
-        product,
-        {
-          headers: {
-            authorization: `Bearer ${userInfo.token}`,
-          },
-        }
-      );
-      dispatch({ type: UPDATE_PRODUCT_SUCCESS });
-      console.log(data);
-    } catch (error) {
-      const failMessage =
-        error.response && error.response.data.msg
-          ? error.response.data.msg
-          : error.message;
-      dispatch({ type: UPDATE_PRODUCT_FAIL, payload: failMessage });
-    }
-  };
+      product,
+      {
+        headers: {
+          authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+    );
+    dispatch({ type: UPDATE_PRODUCT_SUCCESS });
+    console.log(data);
+  } catch (error) {
+    const failMessage =
+      error.response && error.response.data.msg
+        ? error.response.data.msg
+        : error.message;
+    dispatch({ type: UPDATE_PRODUCT_FAIL, payload: failMessage });
+  }
+};
 export const deleteItem = (productId) => async (dispatch, getState) => {
   const userInfo = getState().userSignin.userInfo;
   dispatch({ type: DELETE_PRODUCT_REQUEST, payload: productId });
