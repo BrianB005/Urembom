@@ -30,7 +30,9 @@ const SingleProduct = () => {
     dispatch(addToCart(productId));
   };
   const addReview = () => {
-    dispatch(createReview(productId, buyerReview, rating));
+    dispatch(
+      createReview({ product: productId, title: buyerReview, rating: rating })
+    );
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -70,7 +72,7 @@ const SingleProduct = () => {
     return <Loading />;
   }
   return (
-    <div>
+    <ProductWrapper>
       <Link to="/">
         <BackButton check>Back To Products</BackButton>
       </Link>
@@ -162,15 +164,19 @@ const SingleProduct = () => {
             {review?.loading ? "Submitting..." : "Submit"}
           </BackButton>
           <Text>{`Number of Reviews (${numOfReviews}`})</Text>
+
           {reviews?.map((review) => {
             return <Review key={review._id} {...review} />;
           })}
         </Reviews>
       </Wrapper>
-    </div>
+    </ProductWrapper>
   );
 };
-
+const ProductWrapper = styled.div`
+  /* margin-top: 60px; */
+  padding-top: 10px;
+`;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -179,9 +185,9 @@ const Wrapper = styled.div`
   border-radius: 13px;
   align-items: center;
   width: 90vw;
-  margin: 20px auto;
+  margin: 0 auto;
   max-width: 500px;
-  padding: 18px;
+  padding: 0 18px;
 
   @media screen and (max-width: 500px) {
     // margin-left:20px;
@@ -317,8 +323,9 @@ const Button = styled.button`
   color: whitesmoke;
   // background:#09009B;
   &:hover {
-    background: pink;
+    /* background: pink; */
     color: white;
+    border-radius: 18px;
     background: ${(props) => props.check && "#F43B86"};
     background: ${(props) => props.cart && "#F5ABC"};
     color: ${(props) => props.cart && "#082032"};
@@ -329,7 +336,7 @@ const Button = styled.button`
 `;
 const BackButton = styled.div`
   padding: 8px 10px;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   width: fit-content;
   cursor: pointer;
   border-radius: 6px;

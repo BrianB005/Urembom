@@ -7,14 +7,14 @@ import { GetCategories, LIST_PRODUCTS } from "../redux2/actions/productActions";
 import { useSelector, useDispatch } from "react-redux";
 const Home = () => {
   const [category, setCategory] = useState("");
-
+  const products = useSelector((state) => state.productsList.prdoucts);
   const dispatch = useDispatch();
   useMemo(() => {
     dispatch(GetCategories());
   }, [dispatch]);
   useEffect(() => {
     dispatch(LIST_PRODUCTS(category));
-  }, [dispatch, category]);
+  }, [dispatch, category, products]);
   // console.log(category);
   const userInfo = useSelector((state) => state.userSignin.userInfo);
   const userRole = userInfo?.user?.role;

@@ -181,7 +181,7 @@ const Rating = styled.div`
   padding: 5px 0;
 `;
 const Button = styled.button`
-  padding: 4px 10px;
+  padding: 4px 12px;
   cursor: pointer;
   border-radius: 6px;
   border: transparent;
@@ -190,11 +190,12 @@ const Button = styled.button`
   margin-right: 17px;
   // background:#09009B;
   &:hover {
-    background: pink;
-    color: white;
+    /* background: pink; */
+    border-radius: 12px;
+    /* color: white; */
     background: ${(props) => props.check && "#F43B86"};
     background: ${(props) => props.cart && "#F5ABC"};
-    color: ${(props) => props.cart && "#082032"};
+    /* color: ${(props) => props.cart && "#082032"}; */
   }
   background: ${(props) => props.cart && "#F43B86"};
   background: ${(props) => props.check && "#F5ABC9"};
