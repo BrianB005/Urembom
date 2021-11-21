@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { savePaymentMethod } from "../redux2/actions/cartActions";
+import { useDispatch } from "react-redux";
 const PaymentMethod = () => {
   const [paymentMethod, setPaymentMethod] = useState("Paypal");
-
-  console.log(paymentMethod);
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(savePaymentMethod(paymentMethod));
+  };
+  // console.log(paymentMethod);
   return (
     <Wrapper>
       <Select>
@@ -40,7 +45,7 @@ const PaymentMethod = () => {
         <Label htmlFor="mpesa">Pay on Delivery</Label>
       </Select>
       <Link to="/shipping">
-        <Button>Continue to Order</Button>
+        <Button onClick={handleClick}>Continue to Order</Button>
       </Link>
     </Wrapper>
   );

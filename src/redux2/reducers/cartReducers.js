@@ -6,9 +6,8 @@ import {
   CART_SAVE_PAYMENT_METHOD,
   CART_SAVE_SHIPPING_ADDRESS,
   GET_TOTALS,
-  INCREASE_COUNT,
-  DECREASE_COUNT
-} from '../constants/cartConstants';
+  CHANGE_COUNT,
+} from "../constants/cartConstants";
 
 export const cartReducer = (state = { cartItems: [] }, action) => {
   switch (action.type) {
@@ -18,21 +17,35 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
       if (existItem) {
         return {
           ...state,
-          error: '',
+          error: "",
           cartItems: state.cartItems.map((x) =>
             x.product === existItem.product ? item : x
           ),
         };
       } else {
-        return { ...state, error: '', cartItems: [...state.cartItems, item] };
+        return { ...state, error: "", cartItems: [...state.cartItems, item] };
       }
     case CART_REMOVE_ITEM:
       return {
         ...state,
-        error: '',
-        cartItems: state.cartItems.filter((x) => x.product !== action.payload)
+        error: "",
+        cartItems: state.cartItems.filter((x) => x.product !== action.payload),
       };
-      
+    case CHANGE_COUNT:
+      const productId = action.payload.productId;
+      const newCount = action.payload.count;
+
+      let updatedCart = state.cartItems.map((item) => {
+        if (item.product === productId) {
+          return { ...item, count: newCount };
+        }
+        return item;
+      });
+      return {
+        ...state,
+        cartItems: updatedCart,
+      };
+
     case CART_SAVE_SHIPPING_ADDRESS:
       return { ...state, shippingAddress: action.payload };
     case CART_SAVE_PAYMENT_METHOD:
@@ -40,22 +53,25 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
     case CART_ADD_ITEM_FAIL:
       return { ...state, error: action.payload };
     case CLEAR_CART:
-      return { ...state, error: '', cartItems: [] };
+      return { ...state, error: "", cartItems: [] };
 
-    case INCREASE_COUNT:
-      return {...state,cartItems:[...state?.cartItems,...action.payload,action.payload.count+1]}
-    case DECREASE_COUNT:
-        return {...state,cartItems:[...state?.cartItems,...action.payload,action.payload.count-1]}
-      
     case GET_TOTALS:
-      const total=action.payload.reduce((total,item)=>
-         total+=item.price,0)
-      const shippingFee=total*0.125
-      const Tax=total*0.025
-      const cartTotal=total+Tax+shippingFee
+      const total = action.payload.reduce(
+        (total, item) => (total += item.price * Number(item.count)),
+        0
+      );
+      const shippingFee = total * 0.045;
+      const Tax = total * 0.02;
+      const cartTotal = total + Tax + shippingFee;
       // console.log(Tax)
 
-      return {...state,totalAmount:total,shippingFee:shippingFee,tax:Tax,cartTotal:cartTotal}  
+      return {
+        ...state,
+        totalAmount: total,
+        shippingFee: shippingFee,
+        tax: Tax,
+        cartTotal: cartTotal,
+      };
     default:
       return state;
   }

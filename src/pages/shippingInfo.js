@@ -8,11 +8,9 @@ import { saveShippingAddress } from "../redux2/actions/cartActions";
 const ShippingInfo = (props) => {
   const userInfo = useSelector((state) => state.userSignin?.userInfo);
   const [address, setAddress] = useState({});
-  // const location=useLocation()
-  // console.log(address);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const redirect=location.pathname.split('/')[-1]|| "login"
+
   useEffect(() => {
     if (!userInfo) {
       navigate("/login");
@@ -41,12 +39,7 @@ const ShippingInfo = (props) => {
           name="townaddress"
           placeholder="Town Address"
         />
-        <Input
-          type="text"
-          name="homeaddress"
-          required
-          placeholder="Home Address"
-        />
+
         <Input
           type="text"
           name="postaladdress"
