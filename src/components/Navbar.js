@@ -118,7 +118,8 @@ const Nav = styled.div`
 `;
 const Button = styled.button`
   cursor: pointer;
-  border: 1px solid chartreuse;
+  border: 1px solid pink;
+  padding: 1px;
   margin-top: 4px;
   text-transform: uppercase;
 `;
@@ -210,7 +211,7 @@ const AccountContent = styled.div`
 const Account = styled.div`
   position: relative;
   cursor: pointer;
-  margin-right: 30px;
+  margin-right: 35px;
   @media screen and (max-width: 500px) {
     margin-right: 20px;
   }

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { saveShippingAddress } from "../redux2/actions/cartActions";
 const ShippingInfo = (props) => {
   const userInfo = useSelector((state) => state.userSignin?.userInfo);
+  const shippingInfo = useSelector((state) => state.cart.shippingAddress);
   const [address, setAddress] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -16,6 +17,9 @@ const ShippingInfo = (props) => {
       navigate("/login");
     }
   }, [navigate, userInfo]);
+  if (shippingInfo) {
+    navigate("payment");
+  }
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(saveShippingAddress(address));
