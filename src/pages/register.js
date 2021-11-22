@@ -73,7 +73,9 @@ const Register = (props) => {
             required
             placeholder="confirm password"
           />
-          <Button type="submit">{loading ? "Hold on...." : "REGISTER"}</Button>
+          <Button type="submit" disabled={loading}>
+            {loading ? "Hold on...." : "REGISTER"}
+          </Button>
         </Form>
       </Wrapper>
     </Container>
@@ -142,6 +144,9 @@ const Button = styled.button`
   }
   color: white;
   cursor: pointer;
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
 
 export default Register;
