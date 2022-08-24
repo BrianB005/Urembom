@@ -34,7 +34,7 @@ export const LIST_PRODUCTS = (searchTerm, category) => async (dispatch) => {
     dispatch({ type: PRODUCTS_IN_A_CATEGORY_REQUEST, payload: category });
     try {
       const { data } = await axios.get(
-        `https://stormy-dawn-71374.herokuapp.com/api/v1/products/category?category=${category}`
+        `https://urembom-backend.herokuapp.com/api/v1/products/category?category=${category}`
       );
       dispatch({ type: PRODUCTS_IN_A_CATEGORY_SUCCESS, payload: data });
       // console.log(data);
@@ -53,7 +53,7 @@ export const LIST_PRODUCTS = (searchTerm, category) => async (dispatch) => {
     dispatch({ type: PRODUCT_SEARCH_REQUEST, payload: searchTerm });
     try {
       const { data } = await axios.get(
-        `https://stormy-dawn-71374.herokuapp.com/api/v1/products/search?search_query=${searchTerm}`
+        `https://urembom-backend.herokuapp.com/api/v1/products/search?search_query=${searchTerm}`
       );
       dispatch({ type: PRODUCT_SEARCH_SUCCESS, payload: data, searchTerm: "" });
     } catch (error) {
@@ -69,7 +69,7 @@ export const LIST_PRODUCTS = (searchTerm, category) => async (dispatch) => {
     dispatch({ type: PRODUCT_LIST_REQUEST });
     try {
       const { data } = await axios.get(
-        "https://stormy-dawn-71374.herokuapp.com/api/v1/products"
+        "https://urembom-backend.herokuapp.com/api/v1/products"
       );
       dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     } catch (error) {
@@ -88,7 +88,7 @@ export const getProduct = (productId) => async (dispatch) => {
   dispatch({ type: GET_PRODUCT_REQUEST, payload: productId });
   try {
     const { data } = await axios.get(
-      `https://stormy-dawn-71374.herokuapp.com/api/v1/products/find/${productId}`
+      `https://urembom-backend.herokuapp.com/api/v1/products/find/${productId}`
     );
     dispatch({ type: GET_PRODUCT_SUCCESS, payload: data });
   } catch (error) {
@@ -100,7 +100,7 @@ export const GetCategories = () => async (dispatch) => {
   dispatch({ type: PRODUCT_CATEGORIES_REQUEST });
   try {
     const { data } = await axios.get(
-      `https://stormy-dawn-71374.herokuapp.com/api/v1/products/categories`
+      `https://urembom-backend.herokuapp.com/api/v1/products/categories`
     );
     dispatch({ type: PRODUCT_CATEGORIES_SUCCESS, payload: data });
   } catch (error) {
@@ -116,7 +116,7 @@ export const addProduct = (product) => async (dispatch, getState) => {
   dispatch({ type: CREATE_PRODUCT_REQUEST, payload: product });
   try {
     const { data } = await axios.post(
-      "https://stormy-dawn-71374.herokuapp.com/api/v1/products",
+      "https://urembom-backend.herokuapp.com/api/v1/products",
       product,
       {
         headers: {
@@ -140,7 +140,7 @@ export const updateItem = (product) => async (dispatch, getState) => {
   dispatch({ type: UPDATE_PRODUCT_REQUEST, payload: product });
   try {
     const { data } = await axios.put(
-      `https://stormy-dawn-71374.herokuapp.com/api/v1/products/find/${product.productId}}`,
+      `https://urembom-backend.herokuapp.com/api/v1/products/find/${product.productId}}`,
 
       product,
       {
@@ -164,7 +164,7 @@ export const deleteItem = (productId) => async (dispatch, getState) => {
   dispatch({ type: DELETE_PRODUCT_REQUEST, payload: productId });
   try {
     const { data } = await axios.delete(
-      `https://stormy-dawn-71374.herokuapp.com/api/v1/products/find/${productId}`,
+      `https://urembom-backend.herokuapp.com/api/v1/products/find/${productId}`,
       {
         headers: {
           authorization: `Bearer ${userInfo.token}`,
@@ -187,15 +187,20 @@ export const createReview = (product) => async (dispatch, getState) => {
   dispatch({ type: CREATE_REVIEW_REQUEST, payload: product });
   try {
     await axios.post(
-      "https://stormy-dawn-71374.herokuapp.com/api/v1/reviews",
-      product,
+      "https://urembom-backend.herokuapp.com/api/v1/reviews",
+      {
+        title: product.title,
+        rating: product.rating,
+        product: product.product,
+      },
+
       {
         headers: {
           authorization: `Bearer ${userInfo.token}`,
         },
       }
     );
-    dispatch({ type: CREATE_REVIEW_SUCCESS, payload: "success" });
+    dispatch({ type: CREATE_REVIEW_SUCCESS });
   } catch (error) {
     dispatch({
       type: CREATE_REVIEW_FAIL,

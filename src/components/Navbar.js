@@ -14,7 +14,7 @@ const Navbar = ({ openSidebar }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const scrollY = useScrollPosition(40);
   useEffect(() => {
-    setIsScrolled(scrollY > 300 ? "true" : "false");
+    setIsScrolled(scrollY > 600 ? "true" : "false");
   }, [scrollY]);
   const userInfo = useSelector((state) => state.userSignin.userInfo);
   const userName = userInfo?.user?.name;
@@ -213,7 +213,7 @@ const Account = styled.div`
   cursor: pointer;
   margin-right: 35px;
   @media screen and (max-width: 500px) {
-    margin-right: 20px;
+    margin-right: 10px;
   }
   transition: all 0.3s linear;
   font-size: 33px;

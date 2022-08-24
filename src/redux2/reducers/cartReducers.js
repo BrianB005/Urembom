@@ -10,6 +10,7 @@ import {
 } from "../constants/cartConstants";
 
 export const cartReducer = (state = { cartItems: [] }, action) => {
+  // console.log(Array.isArray(state.cartItems));
   switch (action.type) {
     case CART_ADD_ITEM:
       const item = action.payload;

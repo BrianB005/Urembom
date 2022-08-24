@@ -47,7 +47,7 @@ function App() {
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/products/add" element={<AddItem />} />
         <Route path="/products/edit/:id" element={<EditItem />} />
-        <Route path="place-order/success" element={<SuccessOrder />} />
+        <Route path="/place-order/success" element={<SuccessOrder />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </Router>

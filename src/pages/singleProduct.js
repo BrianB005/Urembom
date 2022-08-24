@@ -23,6 +23,7 @@ const SingleProduct = () => {
   const [rating, setRatingValue] = useState(null);
   const [hoverValue, setHoverValue] = useState(null);
   const review = useSelector((state) => state.review);
+  const userInfo = useSelector((state) => state.userSignin?.userInfo);
   const handleChange = (e) => {
     setReview(e.target.value);
   };
@@ -30,10 +31,19 @@ const SingleProduct = () => {
     dispatch(addToCart(productId));
   };
   const addReview = () => {
+    if (!userInfo) {
+      alert("You must be logged in to review an item!!");
+    }
     dispatch(
       createReview({ product: productId, title: buyerReview, rating: rating })
     );
   };
+  const { error, success } = review;
+  useEffect(() => {
+    if (error) {
+      alert(error);
+    }
+  }, [error]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -64,7 +74,7 @@ const SingleProduct = () => {
     price,
     name,
   } = product;
-  // console.log(reviews);
+  console.log(reviews);
   // console.log(product);
   // console.log(numOfReviews);
 
@@ -82,7 +92,7 @@ const SingleProduct = () => {
       <Wrapper>
         <ImageContainer>
           <Image src={image}></Image>
-          <Shipped>{freeShipping && "Free Shipping"}</Shipped>
+          {freeShipping && <Shipped>Free Shipping</Shipped>}
         </ImageContainer>
         <InfoContainer>
           <Title>{name}</Title>
@@ -160,7 +170,7 @@ const SingleProduct = () => {
                 );
               })}
           </Rating>
-          <BackButton onClick={addReview}>
+          <BackButton onClick={addReview} disabled={success}>
             {review?.loading ? "Submitting..." : "Submit"}
           </BackButton>
           <Text>{`Number of Reviews (${numOfReviews}`})</Text>
@@ -187,7 +197,7 @@ const Wrapper = styled.div`
   width: 90vw;
   margin: 0 auto;
   max-width: 500px;
-  padding: 0 18px;
+  padding: 10px 18px;
 
   @media screen and (max-width: 500px) {
     // margin-left:20px;
@@ -322,6 +332,11 @@ const Button = styled.button`
   border: transparent;
   color: whitesmoke;
   // background:#09009B;
+  &:disabled {
+    cursor: not-allowed;
+    background: gray;
+    color: white;
+  }
   &:hover {
     /* background: pink; */
     color: white;

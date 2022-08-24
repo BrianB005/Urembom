@@ -11,8 +11,7 @@ const EmptyCart = () => {
 }
 const Container=styled.div`
   margin-top: 15vh;
-  
-  
+ 
   display: flex;
   flex-direction: column;
   align-items: center;

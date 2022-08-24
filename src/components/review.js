@@ -1,33 +1,18 @@
-import axios from "axios";
+// import axios from "axios";
 import { FaStar } from "react-icons/fa";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-const Review = ({ user, title, rating }) => {
-  const [reviewUser, setUser] = useState({});
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const res = await axios.get(
-          `https://stormy-dawn-71374.herokuapp.com/api/v1/users/find/${user}`
-        );
-        setUser(res.data);
-        console.log(reviewUser);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getUser();
-  });
+const Review = ({ user, reviewername, title, rating }) => {
   return (
     <Wrapper>
-      <Name>Brian</Name>
+      <Name>{reviewername ? reviewername : user.slice(0, 5)}</Name>
 
       <Rating>
         {Array(rating)
           .fill()
           .map((_, i) => {
             return (
-              <Star>
+              <Star key={i}>
                 <FaStar />
               </Star>
             );
