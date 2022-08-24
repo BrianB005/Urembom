@@ -1,22 +1,22 @@
-import Axios from 'axios';
-import { CLEAR_CART } from '../constants/cartConstants';
+import Axios from "axios";
+import { CLEAR_CART } from "../constants/cartConstants";
 import {
   ORDER_CREATE_FAIL,
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
- 
-} from '../constants/orderConstants';
+} from "../constants/orderConstants";
 
 export const createOrder = (order) => async (dispatch, getState) => {
   dispatch({ type: ORDER_CREATE_REQUEST, payload: order });
   try {
-    const { data } = await Axios.post('http://localhost:5000/api/v1/orders', order, {
-      
-    });
+    const { data } = await Axios.post(
+      "https://urembom-backend.herokuapp.com/api/v1/orders",
+      order,
+      {}
+    );
     dispatch({ type: ORDER_CREATE_SUCCESS, payload: data.order });
     dispatch({ type: CLEAR_CART });
-    localStorage.removeItem('cartItems');
-    
+    localStorage.removeItem("cartItems");
   } catch (error) {
     dispatch({
       type: ORDER_CREATE_FAIL,
@@ -27,4 +27,3 @@ export const createOrder = (order) => async (dispatch, getState) => {
     });
   }
 };
-
